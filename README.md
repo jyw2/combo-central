@@ -37,7 +37,7 @@ Note: Commit history prior to 4/18/2026 has been archived to ensure the removal 
 
 # Setup
 The following outlines how to setup / configure an environment for a game and get it running.
-## Backend env files (Sourced Controlled)
+## Create Backend env files (Source Controlled)
 - look for any `<envName>-env` directory for an example
 - Locate the `envs` directory in the `backend_node` directory
 - create a `<envName>-env` directory
@@ -55,7 +55,7 @@ The following outlines how to setup / configure an environment for a game and ge
     - For actions with no buttons always leave at least one empty array `buttons: [[]]`. 
     - For actions with no motion place an empty string `[""]`.
 
-## Frontend env files (Source controlled)
+## Create Frontend env files (Source controlled)
 - Create a `<envName>-config.js` file. This contains the URL for the backend server.
 - Create a `<envName>-gameConfig.js` file. Read the example file to see what should be included.
 - Create a `<envName>-comboRendering` directory
@@ -72,7 +72,7 @@ The following outlines how to setup / configure an environment for a game and ge
 ### Start from here if redeploying an existing env
 Make sure nodeJS, pm2 and mongoDB are installed and setup first.
 
-## env config file (not source controlled)
+## Create env config file (not source controlled)
 - in the `/frontend/src` directory create an `env.js` file. 
 - Fields:
     - apiHost = `backend origin`
@@ -104,7 +104,7 @@ module.exports = {
 ```
 ALSO NEEDS TO BE ON THE VPS
 
-## firebase config files (not source controlled)
+## Create firebase config files (not source controlled)
 - in `backend/secrets` create a `firebaseServiceAccountKey.json` file. This comes following https://firebase.google.com/docs/admin/setup. 
 Can be found as of 2026 in firebase project settings -> service accounts -> Admin SDK -> generate new private key   
 Should look like:
@@ -195,8 +195,9 @@ You will need to add double qoutes to the keys if copied directly from the fireb
 
 ## Running The App Locally
 ```
-Enter into terminal from the root 
-.\startServers
+from /frontend: npm i
+from /backend_node: npm i
+from /start_scripts: .\startServers.bat
 ```
 
 ## Useful Commands For Deploying
