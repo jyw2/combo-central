@@ -49,7 +49,6 @@ export default function LoginPage() {
     document.title = `Login`;
   }, []);
 
-
   function signUp(email, password) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {

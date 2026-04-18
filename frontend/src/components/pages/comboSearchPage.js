@@ -24,7 +24,6 @@ export default function ComboSearchPage() {
     document.title = `${characterContext.characterData.name} Combos`;
   }, [characterContext.characterData.name]);
 
-
   return (
     <GutterBackground
       leftText={characterContext.characterData.name}

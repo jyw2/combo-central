@@ -125,7 +125,6 @@ export default function Footer() {
             >
               Contact
             </NavLink>
-
           </Stack>
         </Stack>
       </Stack>

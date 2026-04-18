@@ -34,7 +34,6 @@ export default function EnvDirectoryPage(props) {
     const largeScreenSize = useMediaQuery(theme.breakpoints.up('md'))
     const envs = envListOverride ?? environments
 
-
     useEffect(() => {
         document.title = `Combo Central`;
     }, []);

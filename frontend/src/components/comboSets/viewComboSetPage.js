@@ -24,7 +24,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import ComboRenderSelectorRow from "components/shared/comboRenderSelectorRow";
 import FooterAd from "components/footerAd";
 
-
 function getDate(comboSet) {
   if (!comboSet?.createdDate) return " d m, yyyy";
 
@@ -72,7 +71,6 @@ export default function ViewComboSetPage() {
   useEffect(() => {
     document.title = `${comboSet?.name ? comboSet?.name : ""} Combo Set`;
   }, [comboSet]);
-
 
   function renderSidePanelChip(value, key = 0) {
     return (

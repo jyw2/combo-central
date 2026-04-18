@@ -111,7 +111,6 @@ export default function CharDirectoryPage(props) {
         }}>
           <FooterAd />
         </div>
-
       </Stack >
     </GutterBackground >
   );

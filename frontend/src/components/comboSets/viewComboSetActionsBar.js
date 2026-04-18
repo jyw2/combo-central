@@ -22,19 +22,21 @@ export default function ViewComboSetActionsBar({
   secondaryColor,
   charId,
 }) {
+  const [canEdit, setCanEdit] = useState(false);
+  const [favorited, setFavorited] = useState(null);
+  const [likeCoolDown, setLikeCooldown] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null);
+  
   const characterContext = useContext(CharacterContext)
-  const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const toastContent = useContext(ToastContext)
-  const [canEdit, setCanEdit] = useState(false);
+
   const theme = useTheme();
-  const [favorited, setFavorited] = useState(null);
+  const navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
-  const [likeCoolDown, setLikeCooldown] = useState(false)
 
-
-  const [anchorEl, setAnchorEl] = useState(null);
   const openComboSets = Boolean(anchorEl);
+
   const handleComboSetsClick = (event) => {
     setSearchParams(new URLSearchParams());
     setAnchorEl(event.currentTarget);

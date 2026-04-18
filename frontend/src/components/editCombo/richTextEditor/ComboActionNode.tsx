@@ -50,7 +50,6 @@ export class ComboActionNode extends DecoratorNode<JSX.Element> {
   }
 
   createDOM(_config: EditorConfig): HTMLElement {
-    // return document.createElement(this.__inline ? "span" : "div");
     return document.createElement("span");
   }
 

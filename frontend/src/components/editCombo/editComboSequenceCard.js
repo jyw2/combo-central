@@ -158,12 +158,6 @@ function EditComboSequenceCard(props) {
       <Stack alignItems="start">
         <ButtonRenderSelectorRow collapsible={!largeScreenSize} />
       </Stack>
-      {/* <Stack direction="row" spacing={1} sx={{ margin: "auto" }}>
-        <Typography variant="p" align="left" style={{ fontSize: "14px" }}>
-          Click the + below to add to the combo
-        </Typography>
-      </Stack> */}
-
 
       <ChevronComboSequence
         comboPieces={props.comboPieces}

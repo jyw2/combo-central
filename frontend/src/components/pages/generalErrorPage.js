@@ -11,7 +11,6 @@ import { UserContext } from "../../context/userContext";
 import { gameData } from "../../util/envResolverUtilEs6";
 import GutterBackground from "../shared/gutterBackground";
 
-
 export default function GeneralErrorPage() {
   const userContext = useContext(UserContext)
   const navigate = useNavigate()

@@ -409,7 +409,7 @@ export default function EditComboForm() {
 
           {isSaving ? <LinearProgress color="secondary" /> : null}
           {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
-          <Stack sx={{paddingTop:2, width:"100%"}}>
+          <Stack sx={{ paddingTop: 2, width: "100%" }}>
             <FooterAd />
           </Stack >
         </Stack>

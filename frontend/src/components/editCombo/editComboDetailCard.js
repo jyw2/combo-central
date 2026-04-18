@@ -17,8 +17,6 @@ export default function EditComboDetailCard(props) {
 
   const editComboPageContext = useContext(EditComboPageContext);
 
-  // const [visibleDetails, setVisibleDetails] = useState(new Set());
-
   function renderField(fieldData, fieldName) {
     const path = `${name}.${fieldName}`;
 
@@ -62,19 +60,6 @@ export default function EditComboDetailCard(props) {
   }
   return (
     <Card sx={{ p: 3, overflow: "visible", position: "relative" }}>
-      {/* <IconButton
-        style={{
-          width: "25px",
-          height: "25px",
-          position: "absolute",
-          top: "-6px",
-          right: "15px",
-          backgroundColor: theme.palette.anchor.dark,
-          borderRadius: "2px",
-        }}
-      >
-        <CloseIcon></CloseIcon>
-      </IconButton> */}
       <div style={{ height: "2px" }}>
         <Stack
           direction="row"

@@ -22,6 +22,8 @@ Note: Commit history prior to 4/18/2026 has been archived to ensure the removal 
   - Combo searching based on the attacks used and their position
 - Combo sets to group together combos (Ex. A set of beginner combos)
   - Combo set searching based on tags
+  - Combo set Create, Update, Read
+  - Combo set likes
 - Accounts
   - Authentication and Authorization
   - Combo likes

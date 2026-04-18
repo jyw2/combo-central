@@ -155,10 +155,8 @@ export default function HomePage(props) {
         <Stack
           sx={{ width: { xs: "90vw", md: "700px" }, pt: { xs: "-15px", md: "10px" } }}
           style={{
-            // backgroundColor: theme.palette.background.paper,
             overflow: "visible",
             position: "relative",
-            // paddingLeft: largeScreenSize ? "80px" : "0"
           }}>
           <CardContent>
             <Stack spacing={{ xs: 3, md: 4 }} style={{ paddingLeft: largeScreenSize ? "70px" : "5vw", marginRight: largeScreenSize ? "" : "-5vw" }}>
@@ -175,7 +173,6 @@ export default function HomePage(props) {
 
           <Stack sx={{marginTop:5}}>
             <FooterAd />
-
           </Stack>
         </Stack>
       </Stack>

@@ -35,33 +35,6 @@ import { ComboPieceUtil } from "util/comboPieceUtil";
 
 const allowedMotionCharacters = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "[", "]"]
 
-// const TransparentTooltip = styled(({ className, comboPiece, ...props }) => (
-//   <Tooltip
-//     {...props}
-//     classes={{ popper: className }}
-//     disableFocusListener
-//     title={
-//       <OverflowCard title="REQUIRES">
-//         <div style={{ marginLeft: "30px", pointer: "default" }}>
-//           <ComboPieceChevron
-//             noFlexGrow
-//             max={1}
-//             setSelection={() => { }}
-//             index={1}
-//             comboPiece={comboPiece}
-//           />
-//         </div>
-//       </OverflowCard>
-//     }
-//   />
-// ))(() => ({
-//   [`& .${tooltipClasses.tooltip}`]: {
-//     backgroundColor: "black",
-//     maxWidth: "none",
-//     padding: 0,
-//   },
-// }));
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -181,7 +154,6 @@ function EditComboPiece(props) {
     }
   }
 
-
   function checkDependencies(group) {
     return group.map((g) => {
       if (!g.dependencies || ignoreDependencies) {
@@ -261,7 +233,6 @@ function EditComboPiece(props) {
                     />
                   </div>
                 </Stack>
-                // </TransparentTooltip>
               ))}
             </Stack>
           </ComboOverflowWrapper>
@@ -317,7 +288,6 @@ function EditComboPiece(props) {
                 key={comboRenderContext.motionRenderName}
               >
                 {filteredPresets.map((c) => (
-                  // <TransparentTooltip comboPiece={c}>
                   <Stack
                     style={{
                       marginLeft: "40px",
@@ -339,7 +309,6 @@ function EditComboPiece(props) {
                       disabled={c.disabled}
                     />
                   </Stack>
-                  // </TransparentTooltip>
                 ))}
               </Stack>
             </ComboOverflowWrapper>

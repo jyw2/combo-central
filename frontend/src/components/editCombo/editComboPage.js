@@ -17,7 +17,7 @@ function EditComboPage() {
   }, []);
 
   const characterContext = useContext(CharacterContext)
-  useEffect(()=>{
+  useEffect(() => {
     characterContext.setCharacterData(characterData[charId])
   }, [charId])
 

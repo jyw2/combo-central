@@ -45,7 +45,7 @@ function NavBar() {
 
   const toastContext = useContext(ToastContext)
   const userContext = useContext(UserContext);
-const auth = getAuth();
+  const auth = getAuth();
 
   const handleProfileClick = (event) => {
     setAnchorElActionsDropdown(null)
@@ -315,7 +315,6 @@ const auth = getAuth();
           </MenuItem>
         </div>
       </Menu>
-      {/* <Avatar alt="game icon" src={gameIcon}></Avatar> */}
       <Stack direction="row" alignItems="center">
         <Link to="/" style={{ marginRight: "15px", }}>
           <img src={require("../../images/icon.png")} style={{ width: "25px", marginTop: "2px", cursor: "pointer" }}></img>

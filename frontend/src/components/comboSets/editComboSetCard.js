@@ -9,7 +9,6 @@ import {
   Button,
   LinearProgress,
   Alert,
-  IconButton,
   Collapse,
   Typography,
 } from "@mui/material";
@@ -23,27 +22,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 export default function EditComboSetCard(props) {
-  const { charId, firstComboId, compact, submitCallback, update, comboSetId, affectTitle } =
-    props;
-  const theme = useTheme();
+  const { charId, firstComboId, compact, submitCallback, update, comboSetId, affectTitle } = props;
   const [name, setName] = useState("");
   const [tags, setTags] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [complete, setIsComplete] = useState(false);
   const [combos, setCombos] = useState([]);
+  const [comboSet, setComboSet] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
     document.title = `${(affectTitle && name) ? name : ""} Combo Set`;
   }, [name]);
 
   const navigate = useNavigate();
-
   const userContext = useContext(UserContext);
-
-  const [successMessage, setSuccessMessage] = useState(null);
-
-  const [comboSet, setComboSet] = useState(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (comboSetId) {
@@ -117,6 +112,7 @@ export default function EditComboSetCard(props) {
       setIsSaving(false);
     }
   }
+
   return (
     <Stack>
       <OverflowCard
