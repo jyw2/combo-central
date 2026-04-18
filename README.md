@@ -78,7 +78,6 @@ Make sure nodeJS, pm2 and mongoDB are installed and setup first.
     - enableCors = `disables or ensables Cross origin requests. Keep cors disabled (enableCors = false) for all production environments)`
     - httpType = `http or https`
     - mongoAuthString = `auth string for the mongoDB connection if setup. Can leave blank if DB is configured for it`
-    - adSenseTestOnly = `set to True to turn off adsense ads. Does nothing if adsense is not implemented`
 - export using `module.exports` and not `export`. The backend nodeJS can't use the ES6 export.
 
 *Example*
@@ -89,7 +88,6 @@ const envId = "local"
 const enableCors = true
 const httpType = "http"
 const mongoAuthString = "" for local "admin:<PW>"  for productions. PW set during mongoDB setup
-const adSenseTestOnly = true
 
 module.exports = {
     apiHost,
