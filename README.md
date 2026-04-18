@@ -4,6 +4,7 @@
 # Combo Central
 An all in one web app framework to create and share combos for **any 2D fighting game**. Multi game support is possible through custom configuration. Current live implementation only supports Street Fighter 6.
 <br>
+<br>
 Note: Commit history prior to 4/18/2026 has been archived to ensure the removal of sensitive data.
 <br>
 <br>Demo: https://www.youtube.com/watch?v=EO5sJ7pNLFg&feature=youtu.be
