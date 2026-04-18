@@ -1,0 +1,36 @@
+.scale-on-hover-zoomed {
+    transform: scale(1.4) !important;
+    transition: transform 0.2s ease-out !important;
+}
+
+.scale-on-hover-zoomed:hover {
+    transform: scale(1.5) !important;   
+}
+
+.scale-on-hover {
+    transform: scale(1);
+    transition: transform 0.2s ease-out;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.1);   
+}
+
+.spin-on-hover {
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-out;
+}
+
+.spin-on-hover:hover {
+    transform: rotate(360deg);   
+}
+
+
+.shift-right-on-hover {
+    transform: translate(0,0);
+    transition: transform 0.2s ease-out;
+}
+
+.shift-right-on-hover:hover {
+    transform: translate(10px,0px);   
+}

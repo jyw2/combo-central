@@ -1,0 +1,198 @@
+{
+    "Normals": [
+        [
+            {
+                "name": "Light Punch",
+                "input": {
+                    "buttons": [
+                        "A"
+                    ]
+                }
+            },
+            {
+                "name": "Medium Punch",
+                "input": {
+                    "buttons": [
+                        "B"
+                    ]
+                }
+            },
+            {
+                "name": "Hard Punch",
+                "input": {
+                    "buttons": [
+                        "RB"
+                    ]
+                }
+            },
+        ]
+    ],
+    "Specials": [
+        [
+            {
+                "name": "Light Hadouken",
+                "input": {
+                    "buttons": [
+                        "A"
+                    ],
+                    "command": "236"
+                }
+            },
+            {
+                "name": "Medium Hadouken",
+                "input": {
+                    "buttons": [
+                        "B"
+                    ],
+                    "command": "236"
+                }
+            },
+            {
+                "name": "Heavy Hadouken",
+                "input": {
+                    "buttons": [
+                        "RB"
+                    ],
+                    "command": "236"
+                }
+            }
+        ],
+        [
+            {
+                "name": "Light Jinrai Kick",
+                "input": {
+                    "buttons": [
+                        "D"
+                    ],
+                    "command": "236"
+                },
+                "presetId": "lJinrai"
+            },
+            {
+                "name": "Medium Jinrai Kick",
+                "input": {
+                    "buttons": [
+                        "C"
+                    ],
+                    "command": "236"
+                },
+                "presetId": "mJinrai"
+            },
+            {
+                "name": "Heavy Jinrai Kick",
+                "input": {
+                    "buttons": [
+                        "RT"
+                    ],
+                    "command": "236"
+                },
+                "presetId": "hJinrai"
+            },
+            {
+                "name": "Overdrive Jinrai Kick",
+                "input": {
+                    "buttons": [
+                        "A",
+                        "B"
+                    ],
+                    "command": "236"
+                },
+                "presetId": "ODJinrai"
+            },
+        ],
+        [
+            {
+                "name": "Kazekama Shin Kick",
+                "input": {
+                    "buttons": [
+                        "D"
+                    ],
+                    "command": "6"
+                },
+                "presetId": "shinKick",
+                "dependencies": [
+                    "lJinrai|mJinrai|hJinrai|ODJinrai"
+                ]
+            },
+            {
+                "name": "Gorai Axe Kick",
+                "input": {
+                    "buttons": [
+                        "C"
+                    ],
+                    "command": "6"
+                },
+                "presetId": "axeKick",
+                "dependencies": [
+                    "lJinrai|mJinrai|hJinrai|ODJinrai"
+                ]
+            },
+            {
+                "dependencies": [
+                    "shinKick|axeKick",
+                    "ODJinrai",
+                ],
+                "name": "Kasai Thrust Kick",
+                "input": {
+                    "buttons": [
+                        "RT"
+                    ],
+                    "command": "6"
+                }
+            },
+        ],
+        [
+            {
+                "name": "Light Dragon Lash",
+                "input": {
+                    "buttons": [
+                        "D"
+                    ],
+                    "command": "6323"
+                }
+            },
+        ],
+        [
+            {
+                "name": "Light Dragon Punch",
+                "input": {
+                    "buttons": [
+                        "A"
+                    ],
+                    "command": "6323"
+                }
+            },
+        ]
+    ],
+    "Supers": [
+        [
+            {
+                "name": "Dragonlash Flame",
+                "input": {
+                    "buttons": [
+                        "D"
+                    ],
+                    "command": "214214"
+                },
+            },
+            {
+                "name": "Shippu Jinrai-kyaku",
+                "input": {
+                    "buttons": [
+                        "D"
+                    ],
+                    "command": "236236"
+                },
+            },
+            {
+                "name": "Shinryu Reppa",
+                "input": {
+                    "buttons": [
+                        "A"
+                    ],
+                    "command": "236236A"
+                },
+            },
+        ]
+    ]
+},
