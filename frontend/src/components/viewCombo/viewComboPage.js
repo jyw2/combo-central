@@ -36,6 +36,7 @@ import GutterBackground from "../shared/gutterBackground";
 import Combo from "./combo";
 import ViewComboActionsBar from "./viewComboActionsBar";
 import FooterAd from 'components/footerAd';
+import StillWorksPanel from './stillWorksPanel';
 
 function getDate(combo) {
   if (!combo?.createdDate) return "date";
@@ -52,20 +53,34 @@ function ViewComboPage() {
   let { charId, comboId } = useParams();
 
   const comboDetailsSchemaContext = useContext(ComboDetailsSchemaContext)
+  const characterContext = useContext(CharacterContext)
+
   const theme = useTheme();
   const navigate = useNavigate();
-  const userContext = useContext(UserContext);
-  const largeScreenSize = useMediaQuery(theme.breakpoints.up('md'))
-
+  const largeScreenSize = useMediaQuery(theme.breakpoints.up('md'));
 
   const [combo, setCombo] = useState(null);
-  const [owner, setOwner] = useState(null)
+  const [owner, setOwner] = useState(null);
+  const [openRedirectAlert, setOpenRedirectAlert] = useState(false);
 
+  // Helpers & Handlers
+  function getUIType(detailName, detailSubTypeName) {
+    return comboDetailsSchemaContext.comboDetailsSchema[detailName]
+    [detailSubTypeName].uiType;
+  }
+  
+  const handleClickDemo = () => {
+    setOpenRedirectAlert(true);
+  };
+
+  const handleCancelDemoClick = () => {
+    setOpenRedirectAlert(false);
+  };
+
+  // Effects
   useEffect(() => {
     document.title = `View Combo`;
-  }, []);
 
-  useEffect(() => {
     async function fetchAndInit() {
       const { data, status } = await HttpClient.getCombo(comboId);
       if (status === 404 || status === 500) {
@@ -84,6 +99,11 @@ function ViewComboPage() {
     fetchAndInit();
   }, []);
 
+  useEffect(() => {
+    characterContext.setCharacterData(characterData[charId])
+  }, [charId])
+
+  // Render
   function renderSidePanelChip(value, key = 0) {
     return (
       <Chip
@@ -100,7 +120,6 @@ function ViewComboPage() {
       />
     );
   }
-
 
   function renderSubDetail(detailName, subDetailName, value) {
     switch (getUIType(detailName, subDetailName)) {
@@ -122,12 +141,7 @@ function ViewComboPage() {
     }
   }
 
-  function getUIType(detailName, detailSubTypeName) {
-    return comboDetailsSchemaContext.comboDetailsSchema[detailName]
-    [detailSubTypeName].uiType;
-  }
-
-  function getDemoButtonContent() {
+  function renderDemoButton() {
     return (
       <ChevronChainContentWrapper clickcallback={handleClickDemo}>
         <Stack
@@ -141,15 +155,97 @@ function ViewComboPage() {
       </ChevronChainContentWrapper>
     )
   }
-  const [openRedirectAlert, setOpenRedirectAlert] = React.useState(false);
 
-  const handleClickDemo = () => {
-    setOpenRedirectAlert(true);
-  };
+  function renderSubDetails(subDetails, detailCategory) {
+    return Object.entries(subDetails).map(
+      ([subDetail, value], index) => {
+        return (
+          <Stack key={index} direction="row" style={{ marginBottom: "8px" }}
+            justifyContent="space-between"
+          >
+            <Typography align="left" style={{ flexShrink: "0", }}
+              sx={{ fontSize: "14px", color: theme.palette.text.secondary, }}
+            >
+              {JsonSchemaUtils.formatDetail(subDetail)}
+            </Typography>
+            {renderSubDetail(detailCategory, subDetail, value)}
+          </Stack>);
+      }
+    )
+  }
 
-  const handleCancelDemoClick = () => {
-    setOpenRedirectAlert(false);
-  };
+  function renderComboDetails(combo) {
+    return (
+      Object.entries(combo?.details).map(
+        ([detailCategory, subDetails], index) => {
+          return (
+            <Stack key={index}>
+              <Typography
+                align="left"
+                sx={{ fontSize: "18px", fontWeight: "bold", marginBottom: "10px", }}
+              >
+                {JsonSchemaUtils.formatDetail(detailCategory).toUpperCase()}
+              </Typography>
+
+              {!subDetails
+                ? null
+                : renderSubDetails(subDetails, detailCategory)}
+            </Stack>
+          );
+        }
+      )
+    )
+  }
+
+  function renderSideColumn() {
+    return (
+      <div style={{ width: largeScreenSize ? "250px" : "100%" }}>
+        {largeScreenSize ? <Stack sx={{ mb: 2 }}>
+          <ViewComboActionsBar
+            combo={combo}
+            primaryColor={characterContext.characterData.darkerColor}
+            secondaryColor={characterContext.characterData.color}
+            charId={charId}
+            setCombo={setCombo}
+            grow={!largeScreenSize}
+          ></ViewComboActionsBar>
+        </Stack> : null}
+
+        {/* <StillWorksPanel></StillWorksPanel> */}
+
+        <Collapse in={true} >
+          <Card sx={{ p: 2 }}>
+            {!(combo && owner) ? <LinearProgress color="secondary" /> :
+              <Stack direction="column" spacing={2} divider={<Divider />}>
+
+                {/* Date and author */}
+                <Stack direction="row" alignContent="center">
+                  <Typography
+                    align="left"
+                    style={{ color: theme.palette.text.dark, opacity: "80%", fontSize: "12px", }}
+                  > {getDate(combo)} by </Typography>
+
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`../../../user/${combo?.ownerId}`} >
+                    <p style={{ margin: 0, marginLeft: "6px", fontSize: "13px", textDecoration: "none", fontWeight: "bold", color: theme.palette.text.primary, textOverflow: "ellipsis", overflow: "hidden", maxWidth: "120px" }} >
+                      {owner?.username}</p>
+                  </Link>
+                </Stack>
+
+                {/* Details */}
+                {combo?.details ? renderComboDetails(combo) : null}
+              </Stack>}
+          </Card>
+        </Collapse>
+
+        <Stack sx={{ py: 2 }}>
+          <FooterAd />
+        </Stack>
+      </div>
+    )
+  }
+
   const hasRegDetails = !!combo?.oki?.tags?.length || combo?.oki?.notes?.text || !!combo?.comment?.text || !!combo?.demoLink
   function renderMainColumn() {
     return (
@@ -195,21 +291,8 @@ function ViewComboPage() {
 
               <Stack direction="column" spacing={2} divider={<Divider />}>
                 {combo?.demoLink ?
-                  // combo?.demoLink.indexOf("https://www.youtube.com/") === 0 || true ?
-                  //   <iframe
-                  //     title="combo-video"
-                  //     frameBorder="0"
-                  //     style={{ width: "100%", height: largeScreenSize? "400px" : "50vw", marginBottom: "20px" }}
-                  //     src="https://www.youtube.com/embed/-iJWZJ53jUM?si=iJSPda2f2V2SSrjE"
-                  //     frameborder="0" 
-                  //     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  //     referrerpolicy="strict-origin-when-cross-origin" 
-                  //     allowfullscreen
-                  //   /> 
-
-                  //   :
                   <ChevronChain
-                    content={[getDemoButtonContent()]}
+                    content={[renderDemoButton()]}
                     height={45}
                     grow
                     secondaryColor={characterContext.characterData?.color} /> : null
@@ -276,118 +359,6 @@ function ViewComboPage() {
     )
   }
 
-  function renderSideColumn() {
-    return (
-      <div style={{ width: largeScreenSize ? "250px" : "100%" }}>
-        {largeScreenSize ? <Stack sx={{ mb: 2 }}>
-          <ViewComboActionsBar
-            combo={combo}
-            primaryColor={characterContext.characterData.darkerColor}
-            secondaryColor={characterContext.characterData.color}
-            charId={charId}
-            setCombo={setCombo}
-            grow={!largeScreenSize}
-          ></ViewComboActionsBar>
-        </Stack> : null}
-        <Collapse in={true} >
-          <Card sx={{ p: 2 }}>
-            {!(combo && owner) ? <LinearProgress color="secondary" /> :
-              <Stack direction="column" spacing={2} divider={<Divider />}>
-                <Stack direction="row" alignContent="center">
-                  <Typography
-                    align="left"
-                    style={{
-                      color: theme.palette.text.dark,
-                      opacity: "80%",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {getDate(combo)} by
-                  </Typography>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to={`../../../user/${combo?.ownerId}`} >
-                    <p style={{ margin: 0, marginLeft: "6px", fontSize: "13px", textDecoration: "none", fontWeight: "bold", color: theme.palette.text.primary, textOverflow: "ellipsis", overflow: "hidden", maxWidth: "120px" }} >
-                      {owner?.username}</p>
-                  </Link>
-                </Stack>
-                {combo?.details ? (
-                  Object.entries(combo?.details).map(
-                    ([detailCategory, subDetails], index) => {
-                      return (
-                        <Stack key={index}>
-                          <Typography
-                            align="left"
-                            sx={{
-                              fontSize: "18px",
-                              fontWeight: "bold",
-                              marginBottom: "10px",
-                            }}
-                          >
-                            {JsonSchemaUtils.formatDetail(
-                              detailCategory
-                            ).toUpperCase()}
-                          </Typography>
-                          {!subDetails
-                            ? null
-                            : Object.entries(subDetails).map(
-                              ([subDetail, value], index) => {
-                                return (
-                                  <Stack
-                                    key={index}
-                                    direction="row"
-                                    style={{ marginBottom: "8px" }}
-                                    justifyContent="space-between"
-                                  >
-                                    <Typography
-                                      align="left"
-                                      sx={{
-                                        fontSize: "14px",
-                                        color:
-                                          theme.palette.text.secondary,
-                                      }}
-                                      style={{
-                                        flexShrink: "0",
-                                      }}
-                                    >
-                                      {JsonSchemaUtils.formatDetail(
-                                        subDetail
-                                      )}
-                                    </Typography>
-                                    {renderSubDetail(
-                                      detailCategory,
-                                      subDetail,
-                                      value
-                                    )}
-                                  </Stack>
-                                );
-                              }
-                            )}
-                        </Stack>
-                      );
-                    }
-                  )
-                ) : null}
-              </Stack>}
-          </Card>
-
-        </Collapse>
-        <Stack sx={{ py: 2 }}>
-          <FooterAd />
-        </Stack>
-      </div>
-    )
-  }
-
-  const characterContext = useContext(CharacterContext)
-  useEffect(() => {
-    characterContext.setCharacterData(characterData[charId])
-  }, [charId])
-
-  // can be optimized be extracting component and memoizing
-  const cleanedDetails = combo?.details
-    ? ObjectUtils.removeEmptyProperties(combo?.details)
-    : {};
   return (
     <GutterBackground
       leftText={characterContext.characterData.name}
@@ -420,7 +391,7 @@ function ViewComboPage() {
                 setCombo={setCombo}
                 grow={!largeScreenSize}
               ></ViewComboActionsBar></Stack>
-            <Stack  sx={{mb:2}}>
+            <Stack sx={{ mb: 2 }}>
               {renderMainColumn()}
             </Stack>
             <Stack >
